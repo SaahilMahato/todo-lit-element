@@ -11,6 +11,41 @@ class AddTaskView extends LitElement {
         }
     }
 
+    static get styles() {
+        return css `
+            .add-form {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .form-control {
+                width: 30%;
+            }
+
+            label {
+                width: 30%;
+                padding: 3% 0;
+                font-size: 1.4em;
+            }
+            
+            input, select {
+                width: 70%;
+                padding: 3% 0;
+                font-size: 1.4em;
+            }
+
+            button {
+                width: 10%;
+                color: white;
+                background-color: green;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1.4em;
+            }
+        `;
+    }
+
     constructor() {
         super();
         this.title = "";
@@ -23,32 +58,29 @@ class AddTaskView extends LitElement {
             <div class='add-form'>
                 <div class='form-control'>
                     <label>Task</label>
-                    <input type='text' placeholder='Add Task' 
+                    <input id="title" type='text' placeholder='Add Task' 
                     value="${this.title}"
                     @change="${this.updateTitle}"
-                    name="title" required/>
+                    required/>
                 </div>
                 <div class='form-control'>
-                    <label>Day and Time</label>
-                    <input type='text' placeholder='Add Day and Time' 
+                    <label>Time</label>
+                    <input id="time" type='text' placeholder='Add Day and Time' 
                     value="${this.time}"
                     @change="${this.updateTime}"
-                    name="day" required/>
+                    required/>
                 </div>
                 <div class='form-control'>
                     <label>Priority</label>
                     <select @change="${this.updatePriority}" required>
                         <option value="Low Priority">Low Priority</option>
-                        <option value="Medium Priority" selected>Medium Priority</option>
+                        <option id="default" value="Medium Priority" selected>Medium Priority</option>
                         <option value="High Priority">High Priority</option>
                     </select>
                 </div>
-                <button class='btn btn-block'
-                @click="${this.addTask}">
-                Add Task
-                </button>
+                <button @click="${this.addTask}">Add Task</button>
             </div>
-        `
+        `;
     }
 
     updateTitle(e) {
@@ -63,6 +95,13 @@ class AddTaskView extends LitElement {
         this.priority = e.target.value;
     }
 
+    resetForm() {
+        this.shadowRoot.querySelector("#title").value = "";
+        this.shadowRoot.querySelector("#time").value = "";
+        this.shadowRoot.querySelector("#default").selected = true;
+        this.priority = "Medium Priority";
+    }
+
     addTask() {
         if(this.title && this.time) {
             const newTask = {
@@ -71,6 +110,7 @@ class AddTaskView extends LitElement {
                 priority: this.priority,
             }
             document.querySelector("app-view").todos = [...document.querySelector("app-view").todos, newTask];
+            this.resetForm();
         }
     }
 }

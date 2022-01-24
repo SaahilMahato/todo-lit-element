@@ -7,10 +7,18 @@ class AppHeader extends LitElement {
         super();
     }
 
+    static get styles() {
+        return  css`
+            h1 {
+                font-weight: normal;
+            }
+        `
+    }
+
     render() {
         return html`
             <header>
-                <h1>TODO</h1>
+                <h1>TODO-LIST</h1>
             </header>
         `
     }
