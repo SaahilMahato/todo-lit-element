@@ -43,6 +43,7 @@ class AppView extends LitElement {
     constructor() {
         super();
         this.todos = [];
+        this.id = 0;
     }
 
     clearAll() {
@@ -59,9 +60,9 @@ class AppView extends LitElement {
                     <button @click=${this.clearAll}>Clear All</button>
                 </div>
                 <div class="todo-list">
-                    ${this.todos.map((todo, index)=> html`
+                    ${this.todos.map(todo => html`
                         <task-view 
-                            id=${index}
+                            id=${todo.id}
                             title=${todo.title}
                             time=${todo.time}
                         >

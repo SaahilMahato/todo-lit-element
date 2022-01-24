@@ -98,7 +98,6 @@ class AddTaskView extends LitElement {
             document.querySelector("app-view").todos = [...document.querySelector("app-view").todos, newTask];
             this.resetForm();
         }
-        console.log(document.querySelector("app-view").todos);
     }
 }
 
