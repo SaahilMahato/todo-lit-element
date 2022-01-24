@@ -1,25 +1,17 @@
 import { LitElement, html, css } from "lit";
 
-const filters = {
-    SHOW_ALL: "All",
-    SHOW_ACTIVE: "Active",
-    SHOW_COMPLETED: "Completed"
-};
-
 
 class AppView extends LitElement {
 
     static get properties() {
         return {
             todos: { type: Array },
-            filter: { type: String },
         }
     }
 
     constructor() {
         super();
         this.todos = [];
-        this.filter = filters.SHOW_ALL;
     }
 
     render() {
@@ -27,7 +19,16 @@ class AppView extends LitElement {
             <div class="container">
                 <app-header></app-header>
                 <add-task-view></add-task-view>
-                <task-view title="Hello" time="World" priority="High Priority"></task-view>
+                <div class="todo-list">
+                    ${this.todos.map(todo => html`
+                        <task-view 
+                            title=${todo.title}
+                            time=${todo.time}
+                            priority=${todo.priority}
+                        >
+                        </task-view>
+                    `)}
+                </div>
             </div>
         `
     }
