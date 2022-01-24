@@ -7,6 +7,7 @@ class AddTaskView extends LitElement {
         return {
             title: { type: String },
             time: { type: String },
+            priority: { type: String },
         }
     }
 
@@ -14,6 +15,7 @@ class AddTaskView extends LitElement {
         super();
         this.title = "";
         this.time = "";
+        this.priority = "Medium Priority";
     }
 
     render() {
@@ -33,6 +35,14 @@ class AddTaskView extends LitElement {
                     @change="${this.updateTime}"
                     name="day" required/>
                 </div>
+                <div class='form-control'>
+                    <label>Priority</label>
+                    <select @change="${this.updatePriority}" required>
+                        <option value="Low Priority">Low Priority</option>
+                        <option value="Medium Priority" selected>Medium Priority</option>
+                        <option value="High Priority">High Priority</option>
+                    </select>
+                </div>
                 <button class='btn btn-block'
                 @click="${this.addTask}">
                 Add Task
@@ -49,11 +59,16 @@ class AddTaskView extends LitElement {
         this.time = e.target.value;
     }
 
+    updatePriority(e) {
+        this.priority = e.target.value;
+    }
+
     addTask() {
         if(this.title && this.time) {
             const newTask = {
                 title: this.title,
-                time: this.time
+                time: this.time,
+                priority: this.priority,
             }
             document.querySelector("app-view").todos = [...document.querySelector("app-view").todos, newTask];
         }

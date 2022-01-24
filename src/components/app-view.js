@@ -27,6 +27,7 @@ class AppView extends LitElement {
             <div class="container">
                 <app-header></app-header>
                 <add-task-view></add-task-view>
+                <task-view title="Hello" time="World" priority="High Priority"></task-view>
             </div>
         `
     }
