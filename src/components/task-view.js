@@ -5,9 +5,9 @@ class TaskView extends LitElement {
 
     static get properties() {
         return {
+            id: { type: Number },
             title: { type: String},
             time: { type: String },
-            priority: { type: String },
         }
     }
 
@@ -17,15 +17,17 @@ class TaskView extends LitElement {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                border: solid 2px;
-                border-radius: 10px;
-                margin: 5px 0;
             }
 
             .checkbox {
                 width: 24px;
                 height: 24px;
                 cursor: pointer;
+            }
+
+            input {
+                font-size: 18px;
+                border: none;
             }
 
             img {
@@ -39,17 +41,37 @@ class TaskView extends LitElement {
         super();
     }
 
+    deleteTask() {
+        const temp = [];
+        const todos = document.querySelector("app-view").todos;
+        for (let i=0; i<document.querySelector("app-view").todos.length; i++) {
+            if (document.querySelector("app-view").todos[i].id !== this.id)
+                temp.push(document.querySelector("app-view").todos[i]);
+        }
+        document.querySelector("app-view").todos = temp;
+        
+        for (let i=0; i<document.querySelector("app-view").todos.length; i++) {
+                document.querySelector("app-view").todos[i].id = i;
+        }
+
+        console.log(document.querySelector("app-view").todos);
+    }
+
+    updateTitle(e) {
+        this.title = e.target.value;
+    }
+
+    updateTime(e) {
+        this.time = e.target.value;
+    }
+
     render() {
         return html`
-            <div class="task-container"
-                style="border-color: ${this.priority === "High Priority"? "red": 
-                this.priority === "Medium Priority"? "yellow": "green"}"
-            >
+            <div class="task-container">
                 <input class="checkbox" type="checkbox">
-                <h3>${this.title}</h3>
-                <p>${this.time}</p>
-                <p>${this.priority}</p>
-                <img src="../img/icons/delete.png">
+                <input value=${this.title} @change=${this.updateTitle}>
+                <input value=${this.time} @change=${this.updateTime}>
+                <img src="../img/icons/delete.png" @click=${this.deleteTask}>
             </div>
         `
     }

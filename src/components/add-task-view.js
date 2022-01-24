@@ -7,7 +7,6 @@ class AddTaskView extends LitElement {
         return {
             title: { type: String },
             time: { type: String },
-            priority: { type: String },
         }
     }
 
@@ -50,7 +49,6 @@ class AddTaskView extends LitElement {
         super();
         this.title = "";
         this.time = "";
-        this.priority = "Medium Priority";
     }
 
     render() {
@@ -70,14 +68,6 @@ class AddTaskView extends LitElement {
                     @change="${this.updateTime}"
                     required/>
                 </div>
-                <div class='form-control'>
-                    <label>Priority</label>
-                    <select @change="${this.updatePriority}" required>
-                        <option value="Low Priority">Low Priority</option>
-                        <option id="default" value="Medium Priority" selected>Medium Priority</option>
-                        <option value="High Priority">High Priority</option>
-                    </select>
-                </div>
                 <button @click="${this.addTask}">Add Task</button>
             </div>
         `;
@@ -91,27 +81,24 @@ class AddTaskView extends LitElement {
         this.time = e.target.value;
     }
 
-    updatePriority(e) {
-        this.priority = e.target.value;
-    }
-
     resetForm() {
         this.shadowRoot.querySelector("#title").value = "";
         this.shadowRoot.querySelector("#time").value = "";
-        this.shadowRoot.querySelector("#default").selected = true;
-        this.priority = "Medium Priority";
+        this.title = "";
+        this.time = "";
     }
 
     addTask() {
         if(this.title && this.time) {
             const newTask = {
+                id: document.querySelector("app-view").todos.length,
                 title: this.title,
                 time: this.time,
-                priority: this.priority,
             }
             document.querySelector("app-view").todos = [...document.querySelector("app-view").todos, newTask];
             this.resetForm();
         }
+        console.log(document.querySelector("app-view").todos);
     }
 }
 
