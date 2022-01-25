@@ -56,11 +56,12 @@ class AppView extends LitElement {
         this.todos = [...this.todos, newTask];
     }
 
-    editTodo(id, title, time) {
+    editTodo(id, completed, title, time) {
         const temp = [...this.todos];
         
         for(let i=0; i<temp.length; i++) {
             if (temp[i].id === id) {
+                temp[i].completed = completed;
                 temp[i].title = title;
                 temp[i].time = time;
                 break;
@@ -93,6 +94,7 @@ class AppView extends LitElement {
                     ${this.todos.map(todo => html`
                         <task-view 
                             .id=${todo.id}
+                            .completed=${todo.completed}
                             .title=${todo.title}
                             .time=${todo.time}
                             .updateTodos=${this.updateTodos}

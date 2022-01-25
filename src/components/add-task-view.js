@@ -71,6 +71,7 @@ class AddTaskView extends LitElement {
         if(this.title && this.time) {
             const newTask = {
                 id: document.querySelector("app-view").todos.length,
+                completed: false,
                 title: this.title,
                 time: this.time,
             }
