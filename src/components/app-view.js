@@ -53,7 +53,12 @@ class AppView extends LitElement {
     }
 
     updateTodos(newTask) {
-        this.todos = [...this.todos, newTask];
+        const newTaskUpdated = {
+            ...newTask,
+            id: this.todos.length,
+            completed: false,
+        };
+        this.todos = [...this.todos, newTaskUpdated];
     }
 
     editTodo(id, completed, title, time) {

@@ -61,8 +61,6 @@ class AddTaskView extends LitElement {
     }
 
     resetForm() {
-        this.shadowRoot.querySelector("#title").value = "";
-        this.shadowRoot.querySelector("#time").value = "";
         this.title = "";
         this.time = "";
     }
@@ -70,8 +68,6 @@ class AddTaskView extends LitElement {
     addTask() {
         if(this.title && this.time) {
             const newTask = {
-                id: document.querySelector("app-view").todos.length,
-                completed: false,
                 title: this.title,
                 time: this.time,
             }

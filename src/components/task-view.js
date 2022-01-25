@@ -9,7 +9,7 @@ class TaskView extends LitElement {
             completed: { type: Boolean },
             title: { type: String },
             time: { type: String },
-            editTodo: { },
+            editTodo: { Function },
             updateTodos: { },
             deleteTodo: { },
         }
