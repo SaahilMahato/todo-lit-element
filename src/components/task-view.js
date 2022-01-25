@@ -90,8 +90,8 @@ class TaskView extends LitElement {
         return html`
             <div class="task-container">
                 <input class="checkbox" type="checkbox">
-                <input value=${this.title} @change=${this.updateTitle}>
-                <input value=${this.time} @change=${this.updateTime}>
+                <input .value=${this.title} @change=${this.updateTitle}>
+                <input .value=${this.time} @change=${this.updateTime}>
                 <img src="../img/icons/delete.png" @click=${this.deleteTask}>
             </div>
         `

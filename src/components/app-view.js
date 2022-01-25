@@ -62,9 +62,9 @@ class AppView extends LitElement {
                 <div class="todo-list">
                     ${this.todos.map(todo => html`
                         <task-view 
-                            id=${todo.id}
-                            title=${todo.title}
-                            time=${todo.time}
+                            .id=${todo.id}
+                            .title=${todo.title}
+                            .time=${todo.time}
                         >
                         </task-view>
                     `)}

@@ -57,14 +57,14 @@ class AddTaskView extends LitElement {
                 <div class='form-control'>
                     <label>Task</label>
                     <input id="title" type='text' placeholder='Add Task' 
-                    value="${this.title}"
+                    .value="${this.title}"
                     @change="${this.updateTitle}"
                     required/>
                 </div>
                 <div class='form-control'>
                     <label>Time</label>
                     <input id="time" type='text' placeholder='Add Day and Time' 
-                    value="${this.time}"
+                    .value="${this.time}"
                     @change="${this.updateTime}"
                     required/>
                 </div>
