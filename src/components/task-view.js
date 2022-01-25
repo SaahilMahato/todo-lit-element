@@ -8,6 +8,9 @@ class TaskView extends LitElement {
             id: { type: Number },
             title: { type: String},
             time: { type: String },
+            editTodo: { },
+            updateTodos: { },
+            deleteTodo: { },
         }
     }
 
@@ -41,49 +44,14 @@ class TaskView extends LitElement {
         super();
     }
 
-    deleteTask() {
-        const todos = document.querySelector("app-view").todos;
-        const temp = [...todos];
-
-        const deletedTemp = temp.filter(todo => {
-            return todo.id !== this.id;
-        })
-        
-        for (let i=0; i<deletedTemp.length; i++) {
-            deletedTemp[i].id = i;
-        }
-
-        document.querySelector("app-view").todos = [...deletedTemp];
-    }
-
     updateTitle(e) {
         this.title = e.target.value;
-
-        const todos = document.querySelector("app-view").todos;
-        const temp = [...todos];
-        for (let i=0; i<temp.length; i++) {
-            if (temp[i].id === this.id) {
-                temp[i].title = this.title;
-                break;
-            }
-        }
-
-        document.querySelector("app-view").todos = [...temp];
+        this.editTodo(this.id, this.title, this.time);
     }
 
     updateTime(e) {
         this.time = e.target.value;
-
-        const todos = document.querySelector("app-view").todos;
-        const temp = [...todos];
-        for (let i=0; i<temp.length; i++) {
-            if (temp[i].id === this.id) {
-                temp[i].time = this.time;
-                break;
-            }
-        }
-
-        document.querySelector("app-view").todos = [...temp];
+        this.editTodo(this.id, this.title, this.time);
     }
 
     render() {
@@ -92,7 +60,7 @@ class TaskView extends LitElement {
                 <input class="checkbox" type="checkbox">
                 <input .value=${this.title} @change=${this.updateTitle}>
                 <input .value=${this.time} @change=${this.updateTime}>
-                <img src="../img/icons/delete.png" @click=${this.deleteTask}>
+                <img src="../img/icons/delete.png" @click=${() => this.deleteTodo(this.id)}>
             </div>
         `
     }

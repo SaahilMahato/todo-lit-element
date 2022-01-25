@@ -7,6 +7,7 @@ class AddTaskView extends LitElement {
         return {
             title: { type: String },
             time: { type: String },
+            updateTodos: { },
         }
     }
 
@@ -51,28 +52,6 @@ class AddTaskView extends LitElement {
         this.time = "";
     }
 
-    render() {
-        return html`
-            <div class='add-form'>
-                <div class='form-control'>
-                    <label>Task</label>
-                    <input id="title" type='text' placeholder='Add Task' 
-                    .value="${this.title}"
-                    @change="${this.updateTitle}"
-                    required/>
-                </div>
-                <div class='form-control'>
-                    <label>Time</label>
-                    <input id="time" type='text' placeholder='Add Day and Time' 
-                    .value="${this.time}"
-                    @change="${this.updateTime}"
-                    required/>
-                </div>
-                <button @click="${this.addTask}">Add Task</button>
-            </div>
-        `;
-    }
-
     updateTitle(e) {
         this.title = e.target.value;
     }
@@ -95,9 +74,29 @@ class AddTaskView extends LitElement {
                 title: this.title,
                 time: this.time,
             }
-            document.querySelector("app-view").todos = [...document.querySelector("app-view").todos, newTask];
+            this.updateTodos(newTask);
             this.resetForm();
         }
+    }
+
+    render() {
+        return html`
+            <div class='add-form'>
+                <div class='form-control'>
+                    <label>Task</label>
+                    <input id="title" type='text' placeholder='Add Task' 
+                    .value="${this.title}"
+                    @change="${this.updateTitle}"/>
+                </div>
+                <div class='form-control'>
+                    <label>Time</label>
+                    <input id="time" type='text' placeholder='Add Day and Time' 
+                    .value="${this.time}"
+                    @change="${this.updateTime}"/>
+                </div>
+                <button @click="${this.addTask}">Add Task</button>
+            </div>
+        `;
     }
 }
 

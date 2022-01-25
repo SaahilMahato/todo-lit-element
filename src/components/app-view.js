@@ -43,18 +43,48 @@ class AppView extends LitElement {
     constructor() {
         super();
         this.todos = [];
-        this.id = 0;
+        this.updateTodos = this.updateTodos.bind(this);
+        this.editTodo = this.editTodo.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
 
     clearAll() {
         this.todos = [];
     }
 
+    updateTodos(newTask) {
+        this.todos = [...this.todos, newTask];
+    }
+
+    editTodo(id, title, time) {
+        const temp = [...this.todos];
+        
+        for(let i=0; i<temp.length; i++) {
+            if (temp[i].id === id) {
+                temp[i].title = title;
+                temp[i].time = time;
+                break;
+            }
+        }
+
+        this.todos = [...temp];
+    }
+
+    deleteTodo(id) {
+        const temp = this.todos.filter(todo => todo.id !== id);
+
+        for (let i=0; i<temp.length; i++) {
+            temp[i].id = i;
+        }
+
+        this.todos = [...temp];
+    }
+
     render() {
         return html`
             <div class="container">
                 <app-header></app-header>
-                <add-task-view></add-task-view>
+                <add-task-view .updateTodos=${this.updateTodos}></add-task-view>
                 <div class="list-header">
                     <h3>Todos</h3>
                     <button @click=${this.clearAll}>Clear All</button>
@@ -65,6 +95,9 @@ class AppView extends LitElement {
                             .id=${todo.id}
                             .title=${todo.title}
                             .time=${todo.time}
+                            .updateTodos=${this.updateTodos}
+                            .editTodo=${this.editTodo}
+                            .deleteTodo=${this.deleteTodo}
                         >
                         </task-view>
                     `)}
